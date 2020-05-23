@@ -19,32 +19,30 @@ const NewBoxForm = ({addBox}) => {
         e.preventDefault();
         const {width, height, backgroundColor} = formData;
         addBox(+width, +height, backgroundColor);
-        // setFormData(INITIAL_STATE);
+        setFormData(INITIAL_STATE);
     }
+
+    const inputs = Object.keys(INITIAL_STATE);
+
+    const inputTags = inputs.map(inputType => (
+        <div key={inputType}>
+            <label htmlFor={inputType}>{inputType}</label>
+            <input type="text" 
+                    id={inputType}
+                    name={inputType}
+                    value={formData[inputType]}
+                    onChange={handleChange} />
+            <br></br>
+        </div>
+    ))
 
     return (
         <form>
-            <label htmlFor="width">Width</label>
-            <input type="text" 
-                    id="width"
-                    name="width"
-                    value={formData.width}
-                    onChange={handleChange} />
-            <label htmlFor="heigth">height</label>
-            <input type="text" 
-                    id="height"
-                    name="height"
-                    value={formData.height}
-                    onChange={handleChange} />
-            <label htmlFor="backgroundColor">backgroundColor</label>
-            <input type="text" 
-                    id="backgroundColor"
-                    name="backgroundColor"
-                    value={formData.backgroundColor}
-                    onChange={handleChange} />
+            {inputTags}
             <button onClick={handleSubmit}>Create a Box</button>
         </form>
     )
 }
 
 export default NewBoxForm;
+
